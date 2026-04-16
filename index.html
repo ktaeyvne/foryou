@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Kenangan</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<!-- Font Awesome untuk icon -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Background music (loop only; play via button) -->
+<audio id="bg-music" src="page 2.mp3.mpeg" loop hidden></audio>
+<!-- playback toggled by button on page1 -->
+
+<canvas id="stars"></canvas>
+
+<!-- Floating Hearts Background -->
+<div class="floating-hearts"></div>
+
+<!-- Page 1 - Beranda -->
+<div class="page page1 active">
+    <!-- Hero Section -->
+    <div class="hero-container">
+        <div class="hero-glow"></div>
+        <div class="hero-ring ring-1"></div>
+        <div class="hero-ring ring-2"></div>
+        <div class="hero-ring ring-3"></div>
+        
+        <!-- Floating Emoji Elements -->
+        <div class="floating-element elem-1">💕</div>
+        <div class="floating-element elem-2">✨</div>
+        <div class="floating-element elem-3">🌟</div>
+        <div class="floating-element elem-4">💖</div>
+        <div class="floating-element elem-5">🌹</div>
+        <div class="floating-element elem-6">💫</div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="hero-content">
+        <div class="avatar-container">
+            <div class="avatar-ring"></div>
+            <div class="avatar">
+                <span class="avatar-emoji">👫</span>
+            </div>
+            <div class="avatar-glow"></div>
+        </div>
+        
+        <h1 class="hero-title">
+            <span class="title-line">💕 Ruang Kenangan 💕</span>
+        </h1>
+        
+        <h2 class="hero-subtitle highlight">
+            Untuk Menyimpan Kenangan Indah Kita
+        </h2>
+        
+        <p class="hero-description">
+            Tempat menyimpan cerita, foto, dan lagu favorit kalian berdua.
+        </p>
+        
+        <div class="hero-features">
+            <div class="feature-item" style="--delay: 0s;">
+                <div class="feature-icon">📸</div>
+                <span>Foto Kenangan</span>
+            </div>
+            <div class="feature-item" style="--delay: 0.1s;">
+                <div class="feature-icon">🎵</div>
+                <span>Playlist Special</span>
+            </div>
+            <div class="feature-item" style="--delay: 0.2s;">
+                <div class="feature-icon">💌</div>
+                <span>Cerita Kita</span>
+            </div>
+        </div>
+        
+        <div class="hero-cta">
+            <button id="music-toggle" class="cta-btn primary" style="animation-delay:0.3s;">
+                <i class="fas fa-music"></i>
+                <span>🎶 Putar Musik</span>
+            </button>
+            <button class="cta-btn secondary" onclick="showPage(2)" style="animation-delay:0.4s;">
+                <i class="fas fa-play"></i>
+                <span>Mulai Eksplorasi</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Bottom Decorations -->
+    <div class="bottom-decoration">
+        <div class="decoration-line"></div>
+        <div class="decoration-hearts">
+            <span>💕</span><span>💖</span><span>💗</span><span>💓</span><span>💞</span>
+        </div>
+    </div>
+</div>
+
+<!-- Page 2 - Playlist -->
+<div class="page page2">
+    <h1>🎵 Playlist Favorit Kita</h1>
+    
+    <!-- Floating Music Notes -->
+    <div class="music-notes-container">
+        <span class="music-note">🎵</span>
+        <span class="music-note">🎶</span>
+        <span class="music-note">🎵</span>
+        <span class="music-note">🎶</span>
+        <span class="music-note">🎵</span>
+        <span class="music-note">🎶</span>
+        <span class="music-note">🎵</span>
+        <span class="music-note">🎶</span>
+    </div>
+    
+    <!-- Sparkle Particles -->
+    <div class="sparkle-container">
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+        <span class="sparkle"></span>
+    </div>
+    
+    <!-- Mini Music Player -->
+    <div class="mini-player" id="miniPlayer">
+        <div class="vinyl-record" id="vinylRecord">
+            <div class="vinyl-inner">
+                <div class="vinyl-center"></div>
+            </div>
+        </div>
+        <div class="player-info">
+            <div class="player-song-title" id="playerSongTitle">Pilih Lagu</div>
+            <div class="player-artist" id="playerArtist">Klik lagu untuk memutar</div>
+            <!-- Waveform Visualizer -->
+            <div class="waveform-container" id="waveformContainer">
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+                <span class="waveform-bar"></span>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="player-btn" id="playerShuffleBtn" title="Shuffle">
+                <i class="fas fa-shuffle"></i>
+            </button>
+            <button class="player-btn" id="playerPrevBtn" title="Previous">
+                <i class="fas fa-backward"></i>
+            </button>
+            <button class="player-btn play-btn" id="playerPlayBtn" title="Play/Pause">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="player-btn" id="playerNextBtn" title="Next">
+                <i class="fas fa-forward"></i>
+            </button>
+            <button class="player-btn" id="playerRepeatBtn" title="Repeat">
+                <i class="fas fa-repeat"></i>
+            </button>
+        </div>
+        <div class="player-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="time-display">
+                <span id="currentTime">0:00</span>
+                <span id="totalTime">0:00</span>
+            </div>
+        </div>
+        <!-- Volume Control -->
+        <div class="volume-control">
+            <i class="fas fa-volume-up volume-icon" id="volumeIcon"></i>
+            <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="80">
+        </div>
+    </div>
+
+    <!-- Sound Visualizer -->
+    <div class="visualizer" id="visualizer">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+
+    <!-- Playlist Header with Stats -->
+    <div class="playlist-header">
+        <div class="playlist-stats">
+            <div class="stat-item">
+                <i class="fas fa-music"></i>
+                <span class="stat-value" id="totalSongs">5</span>
+                <span>Lagu</span>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <span class="stat-value" id="totalDuration">18:44</span>
+                <span>Total</span>
+            </div>
+        </div>
+        <div class="playlist-actions">
+            <button class="action-btn" id="shuffleAllBtn">
+                <i class="fas fa-random"></i>
+                Acak
+            </button>
+        </div>
+    </div>
+
+    <div class="playlist">
+        <div class="song-item" data-song="Pelangi Dimatamu" data-artist="Jamrud" data-duration="3:45" style="--song-delay: 0s; --album-color-1: #ff6b6b; --album-color-2: #feca57;">
+            <div class="song-number">1</div>
+            <div class="album-cover">
+                <div class="album-gradient"></div>
+                <span class="album-icon">🎸</span>
+            </div>
+            <div class="song-info">
+                <h3>Pelangi Dimatamu</h3>
+                <p>Jamrud</p>
+                <span class="song-duration">3:45</span>
+            </div>
+            <div class="song-actions">
+                <i class="fas fa-heart"></i>
+                <div class="playing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="song-item" data-song="I Wanna Be Yours" data-artist="Arctic Monkeys" data-duration="3:12" style="--song-delay: 0.1s; --album-color-1: #5f27cd; --album-color-2: #48dbfb;">
+            <div class="song-number">2</div>
+            <div class="album-cover">
+                <div class="album-gradient"></div>
+                <span class="album-icon">🎹</span>
+            </div>
+            <div class="song-info">
+                <h3>I Wanna Be Yours</h3>
+                <p>Arctic Monkeys</p>
+                <span class="song-duration">3:12</span>
+            </div>
+            <div class="song-actions">
+                <i class="fas fa-heart"></i>
+                <div class="playing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="song-item" data-song="River Flows In You" data-artist="Yiruma" data-duration="3:30" style="--song-delay: 0.2s; --album-color-1: #10ac84; --album-color-2: #2ed573;">
+            <div class="song-number">3</div>
+            <div class="album-cover">
+                <div class="album-gradient"></div>
+                <span class="album-icon">🎹</span>
+            </div>
+            <div class="song-info">
+                <h3>River Flows In You</h3>
+                <p>Yiruma</p>
+                <span class="song-duration">3:30</span>
+            </div>
+            <div class="song-actions">
+                <i class="fas fa-heart"></i>
+                <div class="playing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="song-item" data-song="Seamin Tak Seiman" data-artist="Mahen" data-duration="4:15" style="--song-delay: 0.3s; --album-color-1: #ee5a24; --album-color-2: #f39c12;">
+            <div class="song-number">4</div>
+            <div class="album-cover">
+                <div class="album-gradient"></div>
+                <span class="album-icon">🎤</span>
+            </div>
+            <div class="song-info">
+                <h3>Seamin Tak Seiman</h3>
+                <p>Mahen</p>
+                <span class="song-duration">4:15</span>
+            </div>
+            <div class="song-actions">
+                <i class="fas fa-heart"></i>
+                <div class="playing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="song-item" data-song="Bunga Terakhir" data-artist="Afgan" data-duration="4:02" style="--song-delay: 0.4s; --album-color-1: #ff9ff3; --album-color-2: #f368e0;">
+            <div class="song-number">5</div>
+            <div class="album-cover">
+                <div class="album-gradient"></div>
+                <span class="album-icon">🌹</span>
+            </div>
+            <div class="song-info">
+                <h3>Bunga Terakhir</h3>
+                <p>Afgan</p>
+                <span class="song-duration">4:02</span>
+            </div>
+            <div class="song-actions">
+                <i class="fas fa-heart"></i>
+                <div class="playing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page 3 - Album Foto - ENHANCED -->
+<div class="page page3">
+    <h1>📸 Album Foto Kenangan</h1>
+    
+    <div class="slider-container">
+        <div class="slider" id="slider">
+            <div class="slide active" data-gradient="667eea,764ba2" onclick="openLightbox(0)">
+                <div class="slide-content" style="--gradient-color-1: #667eea; --gradient-color-2: #764ba2;">
+                    <img src="1.jpeg" alt="Foto 1" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">01</div>
+                    <div class="slide-emoji">✨</div>
+                    <div class="slide-title">Momen Spesial Pertama</div>
+                    <div class="slide-description">Awal dari cerita indah kita</div>
+                    <div class="slide-date">📅 Januari 2024</div>
+                </div>
+            </div>
+            <div class="slide" data-gradient="f093fb,f5576c" onclick="openLightbox(1)">
+                <div class="slide-content" style="--gradient-color-1: #f093fb; --gradient-color-2: #f5576c;">
+                    <img src="2.jpeg" alt="Foto 2" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">02</div>
+                    <div class="slide-emoji">💕</div>
+                    <div class="slide-title">Kenangan Manis</div>
+                    <div class="slide-description">Saat-saat berharga bersama</div>
+                    <div class="slide-date">📅 Februari 2024</div>
+                </div>
+            </div>
+            <div class="slide" data-gradient="4facfe,00f2fe" onclick="openLightbox(2)">
+                <div class="slide-content" style="--gradient-color-1: #4facfe; --gradient-color-2: #00f2fe;">
+                    <img src="3.jpeg" alt="Foto 3" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">03</div>
+                    <div class="slide-emoji">🌟</div>
+                    <div class="slide-title">Saat Berharga</div>
+                    <div class="slide-description">Bersama adalah hadiah terbaik</div>
+                    <div class="slide-date">📅 Maret 2024</div>
+                </div>
+            </div>
+            <div class="slide" data-gradient="43e97b,38f9d7" onclick="openLightbox(3)">
+                <div class="slide-content" style="--gradient-color-1: #43e97b; --gradient-color-2: #38f9d7;">
+                    <img src="4.jpeg" alt="Foto 4" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">04</div>
+                    <div class="slide-emoji">🎉</div>
+                    <div class="slide-title">Kebersamaan</div>
+                    <div class="slide-description">Kebahagiaan dalam setiap detik</div>
+                    <div class="slide-date">📅 April 2024</div>
+                </div>
+            </div>
+            <div class="slide" data-gradient="fa709a,fee140" onclick="openLightbox(4)">
+                <div class="slide-content" style="--gradient-color-1: #fa709a; --gradient-color-2: #fee140;">
+                    <img src="5.jpeg" alt="Foto 5" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">05</div>
+                    <div class="slide-emoji">💫</div>
+                    <div class="slide-title">Selamanya Bersama</div>
+                    <div class="slide-description">Kenangan yang tak terlupakan</div>
+                    <div class="slide-date">📅 Mei 2024</div>
+                </div>
+            </div>
+            <div class="slide" data-gradient="ff9a56,ff748c" onclick="openLightbox(5)">
+                <div class="slide-content" style="--gradient-color-1: #ff9a56; --gradient-color-2: #ff748c;">
+                    <img src="6.jpeg" alt="Foto 6" class="slide-image kenburns">
+                    <div class="slide-overlay"></div>
+                    <div class="slide-number">06</div>
+                    <div class="slide-emoji">🌹</div>
+                    <div class="slide-title">Cinta Kita</div>
+                    <div class="slide-description">Abadi dalam setiap momen</div>
+                    <div class="slide-date">📅 Juni 2024</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Thumbnail Strip -->
+        <div class="thumbnail-strip">
+            <div class="thumbnail active" onclick="showSlide(0)">
+                <img src="1.jpeg" alt="Thumb 1">
+                <div class="thumbnail-overlay"></div>
+            </div>
+            <div class="thumbnail" onclick="showSlide(1)">
+                <img src="2.jpeg" alt="Thumb 2">
+                <div class="thumbnail-overlay"></div>
+            </div>
+            <div class="thumbnail" onclick="showSlide(2)">
+                <img src="3.jpeg" alt="Thumb 3">
+                <div class="thumbnail-overlay"></div>
+            </div>
+            <div class="thumbnail" onclick="showSlide(3)">
+                <img src="4.jpeg" alt="Thumb 4">
+                <div class="thumbnail-overlay"></div>
+            </div>
+            <div class="thumbnail" onclick="showSlide(4)">
+                <img src="5.jpeg" alt="Thumb 5">
+                <div class="thumbnail-overlay"></div>
+            </div>
+            <div class="thumbnail" onclick="showSlide(5)">
+                <img src="6.jpeg" alt="Thumb 6">
+                <div class="thumbnail-overlay"></div>
+            </div>
+        </div>
+        
+        <div class="slider-indicators">
+            <div class="indicator active" onclick="showSlide(0)"></div>
+            <div class="indicator" onclick="showSlide(1)"></div>
+            <div class="indicator" onclick="showSlide(2)"></div>
+            <div class="indicator" onclick="showSlide(3)"></div>
+            <div class="indicator" onclick="showSlide(4)"></div>
+            <div class="indicator" onclick="showSlide(5)"></div>
+        </div>
+        
+        <div class="slider-controls">
+            <button class="slider-btn" onclick="prevSlide()" title="Sebelumnya">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="slider-btn" onclick="nextSlide()" title="Berikutnya">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="gallery-section">
+        <div class="gallery-title">Semua Momen</div>
+        
+        <!-- Gallery Stats -->
+        <div class="gallery-stats">
+            <div class="gallery-stat">
+                <i class="fas fa-images"></i>
+                <span>6</span> Foto
+            </div>
+            <div class="gallery-stat">
+                <i class="fas fa-calendar"></i>
+                <span>6</span> Bulan
+            </div>
+        </div>
+        
+        <div class="photo-grid">
+            <div class="photo-item" onclick="showSlide(0)" style="--photo-gradient-1: #667eea; --photo-gradient-2: #764ba2; --photo-delay: 0s;">
+                <img src="1.jpeg" alt="Foto 1" class="photo-grid-image">
+                <div class="photo-item-content">✨</div>
+                <div class="photo-index">1</div>
+                <div class="photo-date-badge">Jan 2024</div>
+            </div>
+            <div class="photo-item" onclick="showSlide(1)" style="--photo-gradient-1: #f093fb; --photo-gradient-2: #f5576c; --photo-delay: 0.1s;">
+                <img src="2.jpeg" alt="Foto 2" class="photo-grid-image">
+                <div class="photo-item-content">💕</div>
+                <div class="photo-index">2</div>
+                <div class="photo-date-badge">Feb 2024</div>
+            </div>
+            <div class="photo-item" onclick="showSlide(2)" style="--photo-gradient-1: #4facfe; --photo-gradient-2: #00f2fe; --photo-delay: 0.2s;">
+                <img src="3.jpeg" alt="Foto 3" class="photo-grid-image">
+                <div class="photo-item-content">🌟</div>
+                <div class="photo-index">3</div>
+                <div class="photo-date-badge">Mar 2024</div>
+            </div>
+            <div class="photo-item" onclick="showSlide(3)" style="--photo-gradient-1: #43e97b; --photo-gradient-2: #38f9d7; --photo-delay: 0.3s;">
+                <img src="4.jpeg" alt="Foto 4" class="photo-grid-image">
+                <div class="photo-item-content">🎉</div>
+                <div class="photo-index">4</div>
+                <div class="photo-date-badge">Apr 2024</div>
+            </div>
+            <div class="photo-item" onclick="showSlide(4)" style="--photo-gradient-1: #fa709a; --photo-gradient-2: #fee140; --photo-delay: 0.4s;">
+                <img src="5.jpeg" alt="Foto 5" class="photo-grid-image">
+                <div class="photo-item-content">💫</div>
+                <div class="photo-index">5</div>
+                <div class="photo-date-badge">Mei 2024</div>
+            </div>
+            <div class="photo-item" onclick="showSlide(5)" style="--photo-gradient-1: #ff9a56; --photo-gradient-2: #ff748c; --photo-delay: 0.5s;">
+                <img src="6.jpeg" alt="Foto 6" class="photo-grid-image">
+                <div class="photo-item-content">🌹</div>
+                <div class="photo-index">6</div>
+                <div class="photo-date-badge">Jun 2024</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">
+        <i class="fas fa-times"></i>
+    </button>
+    <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); navigateLightbox(-1)">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); navigateLightbox(1)">
+        <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <img src="" alt="Lightbox Image" id="lightboxImage">
+        <div class="lightbox-caption">
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDesc"></p>
+        </div>
+    </div>
+    <div class="lightbox-counter">
+        <span id="lightboxCounter">1 / 6</span>
+    </div>
+</div>
+
+<!-- Page 4 - Cerita dan Kesan -->
+<div class="page page4">
+    <h1>💌 Cerita & Kesan Kita</h1>
+    
+    <div class="story-tabs">
+        <button class="tab-btn active" onclick="showStoryTab(1)">📖 Cerita Kita</button>
+        <button class="tab-btn" onclick="showStoryTab(2)">💕 Kesan Spesial</button>
+        <button class="tab-btn" onclick="showStoryTab(3)">📅 Timeline</button>
+    </div>
+
+    <!-- Tab 1: Cerita Kita -->
+    <div class="story-content active" id="tab1">
+        <div class="story-cards">
+            <div class="story-card" style="--card-delay: 0s;">
+                <div class="card-header">
+                    <div class="card-icon">✨</div>
+                    <div class="card-date">Hari Pertama</div>
+                </div>
+                <div class="card-title">Pertemuan Istimewa</div>
+                <div class="card-text">Bla bla bla bla blaaa gw jomblo ngen</div>
+            </div>
+
+            <div class="story-card" style="--card-delay: 0.1s;">
+                <div class="card-header">
+                    <div class="card-icon">💕</div>
+                    <div class="card-date">Kenangan</div>
+                </div>
+                <div class="card-title">Momen Tak Terlupakan</div>
+                <div class="card-text">Miee ayammmmm</div>
+            </div>
+
+            <div class="story-card" style="--card-delay: 0.2s;">
+                <div class="card-header">
+                    <div class="card-icon">🌟</div>
+                    <div class="card-date">Sekarang</div>
+                </div>
+                <div class="card-title">Janji Selamanya</div>
+                <div class="card-text">Mieee ayammmmmm</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Kesan Spesial -->
+    <div class="story-content" id="tab2">
+        <div class="impression-grid">
+            <div class="impression-card" style="--impression-delay: 0s;">
+                <div class="impression-emoji">😊</div>
+                <div class="impression-name">Teman Baik</div>
+                <div class="impression-relation">Sahabat</div>
+                <div class="impression-text">"POKONYAAA MIEE AYAMMMM"</div>
+            </div>
+
+            <div class="impression-card" style="--impression-delay: 0.1s;">
+                <div class="impression-emoji">🤗</div>
+                <div class="impression-name">Keluarga</div>
+                <div class="impression-relation">Orang Tua</div>
+                <div class="impression-text">"MIEEE AYAMMMM"</div>
+            </div>
+
+            <div class="impression-card" style="--impression-delay: 0.2s;">
+                <div class="impression-emoji">💫</div>
+                <div class="impression-name">Rekan Kerja</div>
+                <div class="impression-relation">Partner</div>
+                <div class="impression-text">"MIEEEE AYAMMMMMMM"</div>
+            </div>
+
+            <div class="impression-card" style="--impression-delay: 0.3s;">
+                <div class="impression-emoji">✨</div>
+                <div class="impression-name">Sahabat Dekat</div>
+                <div class="impression-relation">Teman Sekolah</div>
+                <div class="impression-text">"MIEEE AYAMMM ENAKKKKKKK"</div>
+            </div>
+
+            <div class="impression-card" style="--impression-delay: 0.4s;">
+                <div class="impression-emoji">🌹</div>
+                <div class="impression-name">Keponakan</div>
+                <div class="impression-relation">Keluarga Besar</div>
+                <div class="impression-text">"MIEEE AYAMMM ENAKKKKKKK"</div>
+            </div>
+
+            <div class="impression-card" style="--impression-delay: 0.5s;">
+                <div class="impression-emoji">💖</div>
+                <div class="impression-name">Tetangga Dekat</div>
+                <div class="impression-relation">Sahabat</div>
+                <div class="impression-text">"MIEEE AYAMMM ENAKKKKKKK"</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: Timeline -->
+    <div class="story-content" id="tab3">
+        <div class="timeline">
+            <div class="timeline-item" style="--timeline-delay: 0s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">📅 Awal</div>
+                    <div class="timeline-text">MIEEE AYAMMM ENAKKKKKKK</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" style="--timeline-delay: 0.1s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">💕 Jatuh Cinta</div>
+                    <div class="timeline-text">MIEEE AYAMMM ENAKKKKKKK</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" style="--timeline-delay: 0.2s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">🌟 Milestones</div>
+                    <div class="timeline-text">MIEEE AYAMMM ENAKKKKKKK</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" style="--timeline-delay: 0.3s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">💍 Komitmen</div>
+                    <div class="timeline-text">MIEEE AYAMMM ENAKKKKKKK</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" style="--timeline-delay: 0.4s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">🎉 Selamanya</div>
+                    <div class="timeline-text">MIEEE AYAMMM ENAKKKKKKK</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page 5 - Galaxy Love - Three.js Interactive 3D -->
+<div class="page page5">
+    <h1 class="galaxy-title">Only For U, MIEE AYAMM 💕</h1>
+    
+    <!-- Three.js Canvas Container -->
+    <div id="galaxy-canvas" class="galaxy-canvas"></div>
+    
+    <!-- Navigation Buttons for Galaxy Page -->
+    <div class="galaxy-nav-buttons">
+        <button class="galaxy-nav-btn" onclick="showPage(1)" title="Beranda">
+            <span>💕</span>
+            <span>Beranda</span>
+        </button>
+        <button class="galaxy-nav-btn" onclick="showPage(2)" title="Playlist">
+            <span>🎵</span>
+            <span>Playlist</span>
+        </button>
+        <button class="galaxy-nav-btn" onclick="showPage(3)" title="Album Foto">
+            <span>📸</span>
+            <span>Foto</span>
+        </button>
+        <button class="galaxy-nav-btn" onclick="showPage(4)" title="Cerita">
+            <span>💌</span>
+            <span>Cerita</span>
+        </button>
+    </div>
+    
+    <!-- Instructions -->
+    <div class="galaxy-instructions">
+        <span>🖱️ Gerakkan mouse untuk efek parallax</span>
+    </div>
+    
+    <!-- Fallback message for mobile -->
+    <div class="galaxy-fallback">
+        <p>Klik untuk masuk ke mode interaktif</p>
+    </div>
+</div>
+<div class="navbar">
+    <button class="nav-btn active" onclick="showPage(1)" title="💕 Beranda">
+        <span class="nav-emoji">💕</span>
+        <i class="fas fa-heart"></i>
+    </button>
+    <button class="nav-btn" onclick="showPage(2)" title="🎵 Playlist">
+        <span class="nav-emoji">🎵</span>
+        <i class="fas fa-music"></i>
+    </button>
+    <button class="nav-btn" onclick="showPage(3)" title="📸 Album Foto">
+        <span class="nav-emoji">📸</span>
+        <i class="fas fa-images"></i>
+    </button>
+    <button class="nav-btn" onclick="showPage(4)" title="💌 Cerita & Kesan">
+        <span class="nav-emoji">💌</span>
+        <i class="fas fa-book-heart"></i>
+    </button>
+    <button class="nav-btn" onclick="showPage(5)" title="🌌 Galaxy Love">
+        <span class="nav-emoji">🌌</span>
+        <i class="fas fa-galaxy"></i>
+    </button>
+</div>
+
+<script>
+// ========== Stars Background Animation ==========
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for (let i = 0; i < 150; i++) {
+    stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 2.5,
+        alpha: Math.random(),
+        speed: Math.random() * 0.03,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5
+    });
+}
+
+function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(star => {
+        star.alpha += star.speed;
+        star.x += star.vx;
+        star.y += star.vy;
+        
+        if (star.x > canvas.width) star.x = 0;
+        if (star.x < 0) star.x = canvas.width;
+        if (star.y > canvas.height) star.y = 0;
+        if (star.y < 0) star.y = canvas.height;
+        
+        if (star.alpha <= 0 || star.alpha >= 1) star.speed *= -1;
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        ctx.fill();
+    });
+
+    requestAnimationFrame(drawStars);
+}
+
+drawStars();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// ========== Floating Hearts Background ==========
+const heartsContainer = document.querySelector('.floating-hearts');
+
+function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.textContent = '💕';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = Math.random() * 4 + 6 + 's';
+    heart.style.fontSize = Math.random() * 10 + 15 + 'px';
+    heart.style.opacity = Math.random() * 0.2 + 0.05;
+    
+    heartsContainer.appendChild(heart);
+    
+    setTimeout(() => heart.remove(), 10000);
+}
+
+setInterval(createFloatingHeart, 500);
+
+// ========== Page Navigation ==========
+function showPage(pageNum) {
+    const pages = document.querySelectorAll('.page');
+    const navBtns = document.querySelectorAll('.nav-btn');
+    const starsCanvas = document.getElementById('stars');
+    const floatingHearts = document.querySelector('.floating-hearts');
+    
+    pages.forEach(page => page.classList.remove('active'));
+    navBtns.forEach(btn => btn.classList.remove('active'));
+    
+    document.querySelector(`.page${pageNum}`).classList.add('active');
+    navBtns[pageNum - 1].classList.add('active');
+    
+    // Handle navbar visibility on page1
+    if (pageNum === 1) {
+        document.body.classList.add('page1-active');
+    } else {
+        document.body.classList.remove('page1-active');
+    }
+    
+    // Hide stars canvas and floating hearts on Galaxy page (page 5)
+    if (pageNum === 5) {
+        if (starsCanvas) starsCanvas.style.display = 'none';
+        if (floatingHearts) floatingHearts.style.display = 'none';
+        // Add page5-active class to show navbar
+        document.body.classList.add('page5-active');
+        // Initialize Galaxy Three.js scene
+        initGalaxy();
+    } else {
+        if (starsCanvas) starsCanvas.style.display = 'block';
+        if (floatingHearts) floatingHearts.style.display = 'block';
+        // Remove page5-active class
+        document.body.classList.remove('page5-active');
+    }
+    
+    // Refresh slider position when showing page 3
+    if (pageNum === 3) {
+        showSlide(currentSlide);
+    }
+    
+    // Add ripple effect to nav
+    navBtns[pageNum - 1].style.animation = 'none';
+    setTimeout(() => {
+        navBtns[pageNum - 1].style.animation = '';
+    }, 50);
+}
+
+// Initialize navbar visibility on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if page1 is active by default
+    if (document.querySelector('.page1').classList.contains('active')) {
+        document.body.classList.add('page1-active');
+    }
+});
+
+// ========== Story Tab Navigation ==========
+function showStoryTab(tabNum) {
+    const tabs = document.querySelectorAll('.story-content');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    
+    tabs.forEach(tab => tab.classList.remove('active'));
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+    
+    document.getElementById(`tab${tabNum}`).classList.add('active');
+    tabBtns[tabNum - 1].classList.add('active');
+}
+
+// ========== Slider Gallery with Advanced Features ==========
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const indicators = document.querySelectorAll('.indicator');
+const totalSlides = slides.length;
+let autoPlayInterval;
+
+function showSlide(n) {
+    currentSlide = (n + totalSlides) % totalSlides;
+    
+    // Update slide visibility
+    slides.forEach((slide, index) => {
+        slide.classList.toggle('active', index === currentSlide);
+    });
+    
+    // Update indicators
+    indicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === currentSlide);
+    });
+    
+    resetAutoPlay();
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+function resetAutoPlay() {
+    clearInterval(autoPlayInterval);
+    startAutoPlay();
+}
+
+function startAutoPlay() {
+    autoPlayInterval = setInterval(() => {
+        nextSlide();
+    }, 6000);
+}
+
+// Add keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prevSlide();
+    if (e.key === 'ArrowRight') nextSlide();
+});
+
+// Stop auto-play when hovering over slider, resume when not
+const sliderContainer = document.querySelector('.slider-container');
+sliderContainer.addEventListener('mouseenter', () => {
+    clearInterval(autoPlayInterval);
+});
+
+sliderContainer.addEventListener('mouseleave', () => {
+    startAutoPlay();
+});
+
+startAutoPlay();
+
+// ========== Song Item Interactions ==========
+const songItems = document.querySelectorAll('.song-item');
+songItems.forEach(item => {
+    item.addEventListener('click', function() {
+        // Create ripple effect
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.pointerEvents = 'none';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255, 78, 205, 0.6)';
+        ripple.style.animation = 'rippleEffect 0.8s ease-out forwards';
+        
+        const rect = item.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = size + 'px';
+        ripple.style.height = size + 'px';
+        ripple.style.left = '50%';
+        ripple.style.top = '50%';
+        ripple.style.transform = 'translate(-50%, -50%)';
+        
+        item.style.position = 'relative';
+        item.style.overflow = 'hidden';
+        item.appendChild(ripple);
+        
+        // Add heart animation
+        const heart = item.querySelector('i');
+        heart.style.animation = 'heartPulse 0.5s ease forwards';
+        
+        setTimeout(() => {
+            ripple.remove();
+            heart.style.animation = '';
+        }, 800);
+    });
+});
+
+// Add ripple effect animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes rippleEffect {
+        from {
+            width: 0;
+            height: 0;
+            opacity: 0.8;
+        }
+        to {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+    }
+    
+    @keyframes heartPulse {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.3); }
+        50% { transform: scale(1.1); }
+        75% { transform: scale(1.25); }
+        100% { transform: scale(1); }
+    }
+`;
+document.head.appendChild(style);
+
+// ========== Photo Grid Interaction ==========
+const photoItems = document.querySelectorAll('.photo-item');
+photoItems.forEach((item, index) => {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function() {
+        // Jump to corresponding slide
+        showSlide(index);
+        // Scroll to slider
+        sliderContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// ========== Easter Egg: Double Click on Title ==========
+const title = document.querySelector('.page1 h1');
+let titleClickCount = 0;
+
+title.style.cursor = 'pointer';
+title.addEventListener('click', function() {
+    titleClickCount++;
+    if (titleClickCount === 3) {
+        createConfetti();
+        titleClickCount = 0;
+    }
+});
+
+function createConfetti() {
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'fixed';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.top = '-10px';
+        confetti.style.width = '10px';
+        confetti.style.height = '10px';
+        confetti.style.background = ['#ff4ecd', '#ff0080', '#ff6b9d'][Math.floor(Math.random() * 3)];
+        confetti.style.borderRadius = '50%';
+        confetti.style.zIndex = '999';
+        confetti.style.pointerEvents = 'none';
+        confetti.style.animation = `fall ${2 + Math.random()}s ease-in forwards`;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// ========== Music toggle ==========
+(function() {
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-toggle');
+    if (musicBtn && bgMusic) {
+        musicBtn.addEventListener('click', function() {
+            if (bgMusic.paused) {
+                bgMusic.play().catch(function(){});
+                musicBtn.textContent = '🔇 Hentikan Musik';
+            } else {
+                bgMusic.pause();
+                musicBtn.textContent = '🎶 Putar Musik';
+            }
+        });
+    }
+})();
+
+const confettiStyle = document.createElement('style');
+confettiStyle.textContent = `
+    @keyframes fall {
+        to {
+            transform: translateY(100vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(confettiStyle);
+
+// ========== ENHANCED MINI PLAYER & PLAYLIST FUNCTIONALITY ==========
+const playlistSongs = document.querySelectorAll('.song-item');
+const miniPlayer = document.getElementById('miniPlayer');
+const vinylRecord = document.getElementById('vinylRecord');
+const playerSongTitle = document.getElementById('playerSongTitle');
+const playerArtist = document.getElementById('playerArtist');
+const playerPlayBtn = document.getElementById('playerPlayBtn');
+const playerPrevBtn = document.getElementById('playerPrevBtn');
+const playerNextBtn = document.getElementById('playerNextBtn');
+const playerShuffleBtn = document.getElementById('playerShuffleBtn');
+const playerRepeatBtn = document.getElementById('playerRepeatBtn');
+const progressFill = document.getElementById('progressFill');
+const currentTimeEl = document.getElementById('currentTime');
+const totalTimeEl = document.getElementById('totalTime');
+const visualizer = document.getElementById('visualizer');
+const waveformContainer = document.getElementById('waveformContainer');
+const volumeSlider = document.getElementById('volumeSlider');
+const volumeIcon = document.getElementById('volumeIcon');
+
+let currentSongIndex = -1;
+let isPlaying = false;
+let progressInterval;
+let isShuffle = false;
+let isRepeat = false;
+let originalOrder = [];
+
+// Store original order
+playlistSongs.forEach((_, index) => originalOrder.push(index));
+
+// Calculate and display playlist stats
+function updatePlaylistStats() {
+    const totalSongs = playlistSongs.length;
+    let totalSeconds = 0;
+    
+    playlistSongs.forEach(song => {
+        const duration = song.dataset.duration;
+        const parts = duration.split(':');
+        totalSeconds += parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    });
+    
+    const totalMins = Math.floor(totalSeconds / 60);
+    const totalSecs = totalSeconds % 60;
+    const totalDuration = `${totalMins}:${totalSecs.toString().padStart(2, '0')}`;
+    
+    document.getElementById('totalSongs').textContent = totalSongs;
+    document.getElementById('totalDuration').textContent = totalDuration;
+}
+
+updatePlaylistStats();
+
+// Parse duration string to seconds
+function parseDuration(durationStr) {
+    const parts = durationStr.split(':');
+    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+}
+
+// Format seconds to time string
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+// Shuffle function
+function shuffleArray(array) {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
+// Get next song index
+function getNextSongIndex() {
+    if (isShuffle) {
+        const availableIndices = originalOrder.filter(i => i !== currentSongIndex);
+        if (availableIndices.length === 0) return 0;
+        return availableIndices[Math.floor(Math.random() * availableIndices.length)];
+    } else {
+        return (currentSongIndex + 1) % playlistSongs.length;
+    }
+}
+
+// Get previous song index
+function getPrevSongIndex() {
+    if (isShuffle) {
+        const availableIndices = originalOrder.filter(i => i !== currentSongIndex);
+        if (availableIndices.length === 0) return 0;
+        return availableIndices[Math.floor(Math.random() * availableIndices.length)];
+    } else {
+        return currentSongIndex <= 0 ? playlistSongs.length - 1 : currentSongIndex - 1;
+    }
+}
+
+// Play song
+function playSong(index) {
+    if (index < 0 || index >= playlistSongs.length) return;
+    
+    // Remove active class from previous song
+    if (currentSongIndex >= 0) {
+        playlistSongs[currentSongIndex].classList.remove('active');
+    }
+    
+    currentSongIndex = index;
+    const song = playlistSongs[currentSongIndex];
+    const songTitle = song.dataset.song;
+    const artist = song.dataset.artist;
+    const duration = song.dataset.duration;
+    
+    // Update player info
+    playerSongTitle.textContent = songTitle;
+    playerArtist.textContent = artist;
+    totalTimeEl.textContent = duration;
+    
+    // Add active class to current song
+    song.classList.add('active');
+    
+    // Start playing
+    isPlaying = true;
+    vinylRecord.classList.add('playing');
+    playerPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    visualizer.classList.add('active');
+    waveformContainer.classList.add('active');
+    
+    // Start progress
+    startProgress(parseDuration(duration));
+}
+
+// Pause song
+function pauseSong() {
+    isPlaying = false;
+    vinylRecord.classList.remove('playing');
+    playerPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+    visualizer.classList.remove('active');
+    waveformContainer.classList.remove('active');
+    clearInterval(progressInterval);
+}
+
+// Resume song
+function resumeSong() {
+    if (currentSongIndex < 0) {
+        playSong(0);
+        return;
+    }
+    isPlaying = true;
+    vinylRecord.classList.add('playing');
+    playerPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+    visualizer.classList.add('active');
+    waveformContainer.classList.add('active');
+    
+    const song = playlistSongs[currentSongIndex];
+    const duration = song.dataset.duration;
+    const currentProgress = parseFloat(progressFill.style.width) || 0;
+    const totalSeconds = parseDuration(duration);
+    const currentSeconds = (currentProgress / 100) * totalSeconds;
+    
+    startProgress(totalSeconds, currentSeconds);
+}
+
+// Start progress bar
+function startProgress(totalSeconds, startFrom = 0) {
+    clearInterval(progressInterval);
+    let currentSeconds = startFrom;
+    
+    progressInterval = setInterval(() => {
+        if (!isPlaying) return;
+        
+        currentSeconds += 1;
+        if (currentSeconds > totalSeconds) {
+            if (isRepeat) {
+                // Replay current song
+                currentSeconds = 0;
+            } else {
+                // Auto play next song
+                nextSong();
+                return;
+            }
+        }
+        
+        const progress = (currentSeconds / totalSeconds) * 100;
+        progressFill.style.width = progress + '%';
+        currentTimeEl.textContent = formatTime(currentSeconds);
+    }, 1000);
+}
+
+// Previous song
+function prevSong() {
+    const prevIndex = getPrevSongIndex();
+    playSong(prevIndex);
+}
+
+// Next song
+function nextSong() {
+    const nextIndex = getNextSongIndex();
+    playSong(nextIndex);
+}
+
+// Toggle play/pause
+function togglePlayPause() {
+    if (isPlaying) {
+        pauseSong();
+    } else {
+        resumeSong();
+    }
+}
+
+// Toggle shuffle
+function toggleShuffle() {
+    isShuffle = !isShuffle;
+    playerShuffleBtn.classList.toggle('active', isShuffle);
+}
+
+// Toggle repeat
+function toggleRepeat() {
+    isRepeat = !isRepeat;
+    playerRepeatBtn.classList.toggle('active', isRepeat);
+}
+
+// Volume control
+function updateVolume() {
+    const volume = volumeSlider.value / 100;
+    volumeIcon.className = volume === 0 ? 'fas fa-volume-mute volume-icon' : 
+                          volume < 0.5 ? 'fas fa-volume-down volume-icon' : 
+                          'fas fa-volume-up volume-icon';
+}
+
+volumeSlider.addEventListener('input', updateVolume);
+volumeIcon.addEventListener('click', function() {
+    if (volumeSlider.value > 0) {
+        volumeSlider.dataset.prevVolume = volumeSlider.value;
+        volumeSlider.value = 0;
+    } else {
+        volumeSlider.value = volumeSlider.dataset.prevVolume || 80;
+    }
+    updateVolume();
+});
+
+// Add click event to songs
+playlistSongs.forEach((song, index) => {
+    song.addEventListener('click', function() {
+        if (currentSongIndex === index && isPlaying) {
+            togglePlayPause();
+        } else {
+            playSong(index);
+        }
+    });
+});
+
+// Player controls
+playerPlayBtn.addEventListener('click', togglePlayPause);
+playerPrevBtn.addEventListener('click', prevSong);
+playerNextBtn.addEventListener('click', nextSong);
+playerShuffleBtn.addEventListener('click', toggleShuffle);
+playerRepeatBtn.addEventListener('click', toggleRepeat);
+
+// Shuffle all button
+document.getElementById('shuffleAllBtn').addEventListener('click', function() {
+    isShuffle = true;
+    playerShuffleBtn.classList.add('active');
+    this.classList.add('active');
+    // Play random song
+    const randomIndex = Math.floor(Math.random() * playlistSongs.length);
+    playSong(randomIndex);
+});
+
+// Progress bar click
+document.querySelector('.progress-bar').addEventListener('click', function(e) {
+    if (currentSongIndex < 0) return;
+    
+    const rect = this.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+    const percentage = (clickX / width) * 100;
+    
+    const song = playlistSongs[currentSongIndex];
+    const duration = song.dataset.duration;
+    const totalSeconds = parseDuration(duration);
+    const newCurrentSeconds = (percentage / 100) * totalSeconds;
+    
+    progressFill.style.width = percentage + '%';
+    currentTimeEl.textContent = formatTime(newCurrentSeconds);
+    
+    clearInterval(progressInterval);
+    startProgress(totalSeconds, newCurrentSeconds);
+});
+
+// ========== ALBUM PAGE ENHANCEMENTS ==========
+
+// Slide data for lightbox
+const slideData = [
+    { src: '1.jpeg', title: 'Momen Spesial Pertama', desc: 'Awal dari cerita indah kita' },
+    { src: '2.jpeg', title: 'Kenangan Manis', desc: 'Saat-saat berharga bersama' },
+    { src: '3.jpeg', title: 'Saat Berharga', desc: 'Bersama adalah hadiah terbaik' },
+    { src: '4.jpeg', title: 'Kebersamaan', desc: 'Kebahagiaan dalam setiap detik' },
+    { src: '5.jpeg', title: 'Selamanya Bersama', desc: 'Kenangan yang tak terlupakan' },
+    { src: '6.jpeg', title: 'Cinta Kita', desc: 'Abadi dalam setiap momen' }
+];
+
+let lightboxCurrentIndex = 0;
+let isAutoPlay = true;
+
+// Open Lightbox
+function openLightbox(index) {
+    lightboxCurrentIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImage');
+    const title = document.getElementById('lightboxTitle');
+    const desc = document.getElementById('lightboxDesc');
+    const counter = document.getElementById('lightboxCounter');
+    
+    img.src = slideData[index].src;
+    title.textContent = slideData[index].title;
+    desc.textContent = slideData[index].desc;
+    counter.textContent = `${index + 1} / ${slideData.length}`;
+    
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Close Lightbox
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Navigate Lightbox
+function navigateLightbox(direction) {
+    lightboxCurrentIndex = (lightboxCurrentIndex + direction + slideData.length) % slideData.length;
+    openLightbox(lightboxCurrentIndex);
+}
+
+// Update thumbnails when slide changes
+function updateThumbnails() {
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach((thumb, index) => {
+        thumb.classList.toggle('active', index === currentSlide);
+    });
+}
+
+// Override showSlide to also update thumbnails
+const originalShowSlide = showSlide;
+showSlide = function(n) {
+    originalShowSlide(n);
+    updateThumbnails();
+};
+
+// Add keyboard navigation for lightbox
+document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') navigateLightbox(-1);
+        if (e.key === 'ArrowRight') navigateLightbox(1);
+        if (e.key === 'Escape') closeLightbox();
+    }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
